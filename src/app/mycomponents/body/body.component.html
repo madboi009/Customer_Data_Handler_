@@ -46,7 +46,7 @@
 
             <input style="align-items: center; text-align: center;" type="text" class="EditBarInput form-control"
               formControlName="Editname" (ngModelChange)="onSearchSubmit()"
-              *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)" value="{{ user.name }}">
+              *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)">
 
           </td>
         </ng-container>
@@ -92,7 +92,7 @@
               style="align-items: center;text-align: center;padding-right: 12px;border-right-width: 70px;margin-right: 0px;"
               type="text" class="EditBarInput form-control" formControlName="EditState"
               (ngModelChange)="onSearchSubmit()" *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)"
-              value="{{ user.state }}">
+              >
           </td>
         </ng-container>
 
