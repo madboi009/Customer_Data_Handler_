@@ -113,7 +113,6 @@ export class BodyComponent {
       this.openSnackBar('No customer data was Edited ')
     }
     else {
-
       this.customersdata.UpdateCustomer(customerdata, userId).subscribe(() => {
         console.warn(customerdata);
         console.warn(customerdata.id);
