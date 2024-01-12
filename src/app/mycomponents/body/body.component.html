@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <form id="addinputs" #customeraddform="ngForm" (ngSubmit)="addCustomer(customeraddform.value)">
           <div class="row">
-    
+
             <div class="col-2">
               <input name="id" id="idInput" ngModel placeholder="Enter Customer ID" type="text">
             </div>
@@ -22,7 +22,7 @@
         </form>
       </div>
     </div>
-    
+
 
 
 
@@ -91,20 +91,18 @@
             <input
               style="align-items: center;text-align: center;padding-right: 12px;border-right-width: 70px;margin-right: 0px;"
               type="text" class="EditBarInput form-control" formControlName="EditState"
-              (ngModelChange)="onSearchSubmit()" *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)"
-              >
+              (ngModelChange)="onSearchSubmit()" *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)">
           </td>
         </ng-container>
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let user; columns: displayedColumns;" (dblclick)="showButtons(user.id)"></tr>
-      </table>     
-      
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
+      </table>
+
+      <mat-paginator [length]="customersdatav.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
+
+
 
     </form>
   </div>

@@ -15,6 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class BodyComponent {
 
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
 
   faPen = faPen;
@@ -23,9 +24,14 @@ export class BodyComponent {
   visibleButtonsMap: { [key: string]: boolean } = {};
   isEditModeMap: { [key: string]: boolean } = {};
 
+  pageSize = 5; // Set your default page size
+  pageSizeOptions = [5, 10, 20, 25]; // Set your available page size options
 
 
-  public customersdatav: any;
+
+
+  public customersdatav: any = { customerDetails: [], length: 0 };
+
   selection = new SelectionModel<any>(true, []);
   displayedColumns: string[] = ['Id', 'Name', 'State'];
   numberofclicks: number = 0;
@@ -169,5 +175,13 @@ export class BodyComponent {
       this.x=0;
     }
   }
+
+  onPageChange(event: any): void {
+    this.customersdata.getPagedCustomers(event.pageIndex + 1, event.pageSize).subscribe((data) => {
+      this.customersdatav = data;
+    });
+  }
+  
+  
 
 }
