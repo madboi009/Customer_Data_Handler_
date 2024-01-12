@@ -15,7 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class BodyComponent {
 
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
-
+  
 
   faPen = faPen;
   faTrash = faTrash;
@@ -72,21 +72,21 @@ export class BodyComponent {
     }
   }
 
-  nameplaceholder: any;
-  stateplaceholder: any;
-
+   nameplaceholder: any;
+   stateplaceholder: any;
+  
 
   startEdit(userId: any, name: string, state: string) {
     this.isEditModeMap[userId] = true;
-    this.editingUserId = userId;
-
+    this.editingUserId = userId; 
+ 
     this.Editform = this.fb.group({
       Editname: name,
       EditState: state, // Corrected typo in property name
     });
 
-    this.nameplaceholder = name;
-    this.stateplaceholder = state;
+    this.nameplaceholder= name;
+    this.stateplaceholder= state;
 
   }
 
@@ -109,10 +109,12 @@ export class BodyComponent {
       state: this.editStateValue,
     };
 
-    if (this.editNameValue == this.nameplaceholder && this.nameplaceholder == this.stateplaceholder) {
-      this.openSnackBar('No customer data was Edited ')
+    if(this.editNameValue=='' && this.editStateValue=='')
+    {
+      this.openSnackBar('No customer data was Edited');
     }
-    else {
+
+    else{
       this.customersdata.UpdateCustomer(customerdata, userId).subscribe(() => {
         console.warn(customerdata);
         console.warn(customerdata.id);
@@ -125,7 +127,7 @@ export class BodyComponent {
 
   onSearchSubmit(): void {
     this.editNameValue = this.Editform.get('Editname')?.value;
-    this.nameplaceholder = this.Editform.get('EditState')?.value;
+    this.editStateValue = this.Editform.get('EditState')?.value;
   }
 
   addCustomer(customerdata: any) {
@@ -153,16 +155,18 @@ export class BodyComponent {
       alert('Invalid customer ID');
     }
   }
-
-  x: number = 0;
+  
+  x:number=0;
   addboxvisibility() {
-    if (this.x == 0) {
+    if(this.x==0)
+    {
       this.isaddMode = true;
-      this.x = 1;
+      this.x=1;
     }
-    else {
+    else
+    {
       this.isaddMode = false;
-      this.x = 0;
+      this.x=0;
     }
   }
 
