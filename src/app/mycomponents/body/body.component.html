@@ -99,7 +99,12 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let user; columns: displayedColumns;" (dblclick)="showButtons(user.id)"></tr>
-      </table>      
+      </table>     
+      
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
 
     </form>
   </div>
