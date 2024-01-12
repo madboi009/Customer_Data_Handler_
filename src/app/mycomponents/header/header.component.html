@@ -1,0 +1,48 @@
+<!-- header.component.html -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2 leftside">
+      <div class="rounded">
+        <img src="../assets/logo.png" class="img-fluid logo" alt="error" (click)="logoclick()"   title="Add a new entry">
+      </div>      
+    </div>
+    <div class="col-10 rightside">
+      <br>
+      <h1 class="heading">Customer Data Handler</h1>
+      <br>
+
+      <div>
+        <form [formGroup]="searchForm" class="serachBar">
+          <div class="input-group search-bar">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id=""><fa-icon class="user-icon"
+                  [icon]="faMagnifyingGlass"></fa-icon></span>                  
+            </div>            
+              
+
+            <input type="text" class="searchBarInput form-control" 
+       [placeholder]="placeholderText"
+       formControlName="searchValue" (ngModelChange)="onSearchSubmit()">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="setsearchby(1)">                 
+                  <span>Search by Id</span>
+                </button>
+                <button mat-menu-item (click)="setsearchby(2)">                  
+                  <span>Search by Name</span>
+                </button>
+                <button mat-menu-item (click)="setsearchby(3)">                  
+                  <span>Search by State</span>
+                </button>
+              </mat-menu>
+          </div>
+        </form>
+      </div>     
+
+      <app-body></app-body>
+    </div>
+  </div>
+</div>
