@@ -115,7 +115,7 @@ export class BodyComponent {
       state: this.editStateValue,
     };
 
-    if(this.editNameValue=='' && this.editStateValue=='')
+    if((this.editNameValue=='' && this.editStateValue=='')||(this.editStateValue=='')||(this.editNameValue==''))
     {
       this.openSnackBar('No customer data was Edited');
     }
@@ -128,6 +128,9 @@ export class BodyComponent {
         this.openSnackBar('customer data edited' + ' ' + [userId] + ' ' + [this.editNameValue] + ' ' + [this.editStateValue])
       });
     }
+    
+    this.editNameValue = "";
+    this.editStateValue = "";
 
   }
 
@@ -138,16 +141,22 @@ export class BodyComponent {
 
   addCustomer(customerdata: any) {
 
-    this.customersdata.AddNewCustomer(customerdata).subscribe((data) => {
-      this.gettabledata();
-      this.openSnackBar('new customer added' + ' ' + [customerdata.id] + ' ' + [customerdata.name] + ' ' + [customerdata.state])
-    });
+    if((customerdata.name=''&& customerdata.state=='')||(customerdata.name='')||(customerdata.state==''))
+    {
+      this.openSnackBar('Cannot add an empty entry' )
+    }
+    else if(customerdata.id==0)
+    {
+      this.openSnackBar('ID Cannot be 0' )
+    }
+    else{
+      this.customersdata.AddNewCustomer(customerdata).subscribe((data) => {
+        this.gettabledata();
+        this.openSnackBar('new customer added' + ' ' + [customerdata.id] + ' ' + [customerdata.name] + ' ' + [customerdata.state])
+      });
+    }
     this.isaddMode = false;
-
   }
-
-
-
 
   deleteCustomer(DeleteId: string) {
     const Id = parseInt(DeleteId, 10);
