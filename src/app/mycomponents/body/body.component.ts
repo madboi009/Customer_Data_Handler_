@@ -15,6 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class BodyComponent {
 
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
 
   faPen = faPen;
@@ -23,9 +24,14 @@ export class BodyComponent {
   visibleButtonsMap: { [key: string]: boolean } = {};
   isEditModeMap: { [key: string]: boolean } = {};
 
+  pageSize = 5; // Set your default page size
+  pageSizeOptions = [5, 10, 20, 25]; // Set your available page size options
 
 
-  public customersdatav: any;
+
+
+  public customersdatav: any = { customerDetails: [], length: 0 };
+
   selection = new SelectionModel<any>(true, []);
   displayedColumns: string[] = ['Id', 'Name', 'State'];
   numberofclicks: number = 0;
@@ -72,8 +78,9 @@ export class BodyComponent {
     }
   }
 
-  nameplaceholder: any;
-  stateplaceholder: any;
+   nameplaceholder: any;
+   stateplaceholder: any;
+  
 
   startEdit(userId: any, name: string, state: string) {
     this.isEditModeMap[userId] = true;
@@ -84,6 +91,8 @@ export class BodyComponent {
       EditState: state, // Corrected typo in property name
     });
 
+    this.nameplaceholder= name;
+    this.stateplaceholder= state;
 
   }
 
@@ -106,13 +115,25 @@ export class BodyComponent {
       state: this.editStateValue,
     };
 
-    this.customersdata.UpdateCustomer(customerdata, userId).subscribe(() => {
-      console.warn(customerdata);
-      console.warn(customerdata.id);
-      this.gettabledata();
-      this.openSnackBar('customer data edited' + ' ' + [userId] + ' ' + [this.editNameValue] + ' ' + [this.editStateValue])
-    });
+    if(this.editNameValue=='' && this.editStateValue=='')
+    {
+      this.openSnackBar('No customer data was Edited');
+    }
 
+    else{
+      this.customersdata.UpdateCustomer(customerdata, userId).subscribe(() => {
+        console.warn(customerdata);
+        console.warn(customerdata.id);
+        this.gettabledata();
+        this.openSnackBar('customer data edited' + ' ' + [userId] + ' ' + [this.editNameValue] + ' ' + [this.editStateValue])
+      });
+    }
+
+  }
+
+  onSearchSubmit(): void {
+    this.editNameValue = this.Editform.get('Editname')?.value;
+    this.editStateValue = this.Editform.get('EditState')?.value;
   }
 
   addCustomer(customerdata: any) {
@@ -126,13 +147,6 @@ export class BodyComponent {
   }
 
 
-  onSearchSubmit(): void {
-
-    this.editNameValue = this.Editform.get('Editname')?.value;
-    this.editStateValue = this.Editform.get('EditState')?.value;
-
-
-  }
 
 
   deleteCustomer(DeleteId: string) {
@@ -161,5 +175,13 @@ export class BodyComponent {
       this.x=0;
     }
   }
+
+  onPageChange(event: any): void {
+    this.customersdata.getPagedCustomers(event.pageIndex + 1, event.pageSize).subscribe((data) => {
+      this.customersdatav = data;
+    });
+  }
+  
+  
 
 }

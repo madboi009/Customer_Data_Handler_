@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <form id="addinputs" #customeraddform="ngForm" (ngSubmit)="addCustomer(customeraddform.value)">
           <div class="row">
-    
+
             <div class="col-2">
               <input name="id" id="idInput" ngModel placeholder="Enter Customer ID" type="text">
             </div>
@@ -22,7 +22,7 @@
         </form>
       </div>
     </div>
-    
+
 
 
 
@@ -46,7 +46,7 @@
 
             <input style="align-items: center; text-align: center;" type="text" class="EditBarInput form-control"
               formControlName="Editname" (ngModelChange)="onSearchSubmit()"
-              *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)" value="{{ user.name }}">
+              *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)">
 
           </td>
         </ng-container>
@@ -64,13 +64,13 @@
               <button *ngIf="visibleButtonsMap[user.id] && !isEditModeForUser(user.id)" type="button"
                 class="btn btn-outline-success" data-bs-toggle="modal" title="Edit an existing entry"
                 (click)="startEdit(user.id,user.name,user.state)">
-                <fa-icon class="update-user-icon" [icon]="faPen" data-bs-toggle="modal"></fa-icon>Edit
+                <fa-icon class="update-user-icon" [icon]="faPen" data-bs-toggle="modal"></fa-icon>
               </button>
 
               <!-- Delete button -->
               <button *ngIf="visibleButtonsMap[user.id] && !isEditModeForUser(user.id)" type="button"
                 class="btn btn-outline-danger" title="Delete a customer by ID" (click)="deleteCustomer(user.id)">
-                <fa-icon class="delete-user-icon" [icon]="faTrash" data-bs-toggle="modal"></fa-icon>Delete
+                <fa-icon class="delete-user-icon" [icon]="faTrash" data-bs-toggle="modal"></fa-icon>
               </button>
 
 
@@ -91,15 +91,18 @@
             <input
               style="align-items: center;text-align: center;padding-right: 12px;border-right-width: 70px;margin-right: 0px;"
               type="text" class="EditBarInput form-control" formControlName="EditState"
-              (ngModelChange)="onSearchSubmit()" *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)"
-              value="{{ user.state }}">
+              (ngModelChange)="onSearchSubmit()" *ngIf="visibleButtonsMap[user.id] && isEditModeForUser(user.id)">
           </td>
         </ng-container>
 
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let user; columns: displayedColumns;" (dblclick)="showButtons(user.id)"></tr>
-      </table>      
+      </table>
+
+      <mat-paginator [length]="customersdatav.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
+
+
 
     </form>
   </div>
