@@ -64,13 +64,13 @@
               <button *ngIf="visibleButtonsMap[user.id] && !isEditModeForUser(user.id)" type="button"
                 class="btn btn-outline-success" data-bs-toggle="modal" title="Edit an existing entry"
                 (click)="startEdit(user.id,user.name,user.state)">
-                <fa-icon class="update-user-icon" [icon]="faPen" data-bs-toggle="modal"></fa-icon>Edit
+                <fa-icon class="update-user-icon" [icon]="faPen" data-bs-toggle="modal"></fa-icon>
               </button>
 
               <!-- Delete button -->
               <button *ngIf="visibleButtonsMap[user.id] && !isEditModeForUser(user.id)" type="button"
                 class="btn btn-outline-danger" title="Delete a customer by ID" (click)="deleteCustomer(user.id)">
-                <fa-icon class="delete-user-icon" [icon]="faTrash" data-bs-toggle="modal"></fa-icon>Delete
+                <fa-icon class="delete-user-icon" [icon]="faTrash" data-bs-toggle="modal"></fa-icon>
               </button>
 
 
