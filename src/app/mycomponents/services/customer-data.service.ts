@@ -13,7 +13,7 @@ import { Customerdatainterface } from '../customerdatainterface';
 })
 export class CustomerDataService {
 
-  private url = "http://localhost:8008/api/customers";
+  private url = "http://192.168.155.20:8008/api/customers";
 
   
 
