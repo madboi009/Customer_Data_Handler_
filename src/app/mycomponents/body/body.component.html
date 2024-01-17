@@ -27,11 +27,11 @@
 
 
     <form [formGroup]="Editform" class="Edit">
-      <table mat-table [dataSource]="customersdatav.customerDetails" class="table table-hover">
+      <table mat-table [dataSource]="onPageChange()" class="table table-hover">
 
 
         <ng-container matColumnDef="Id">
-          <th mat-header-cell *matHeaderCellDef style="background-color: #49108B;"> Id </th>
+          <th mat-header-cell *matHeaderCellDef style="background-color: #49108B;"> ID </th>
           <td mat-cell *matCellDef="let user" style="text-align: center;background-color: #ffffff;"> {{ user.id }} </td>
         </ng-container>
 
@@ -100,10 +100,17 @@
         <tr mat-row *matRowDef="let user; columns: displayedColumns;" (dblclick)="showButtons(user.id)"></tr>
       </table>
 
-      <mat-paginator [length]="customersdatav.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
-
+      
 
 
     </form>
   </div>
+</div>
+
+
+<div class="paginator-sticky">
+  <mat-paginator [length]="customersdatav.customerDetails.length" [pageSize]="pageSize"
+    [showFirstLastButtons]="true" [pageSizeOptions]="[10, 15, 20, 25]" [pageIndex]="currentPage"
+    (page)="handlePageEvent($event)">
+  </mat-paginator>
 </div>

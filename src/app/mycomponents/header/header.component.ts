@@ -4,6 +4,7 @@ import { BodyComponent } from '../body/body.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
 
 
 
@@ -115,9 +116,6 @@ export class HeaderComponent  {
     this.bodyComponent.addboxvisibility();
   }
 
-
- 
- 
 
   
 
