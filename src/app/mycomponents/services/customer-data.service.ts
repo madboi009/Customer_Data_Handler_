@@ -20,6 +20,9 @@ export class CustomerDataService {
   constructor(private http: HttpClient) { }
 
    
+  AddNewCustomer(newcustomerdata:any): Observable<any> {
+    return this.http.post(`${this.url}/AddNewCustomers`, [newcustomerdata]);
+  }
   CustomersWildsearchid(id:any): Observable<Customerdatainterface[]> {
     return this.http.get<Customerdatainterface[]>(`${this.url}/GetAllCustomersData?idSearch=${id}`);
   }
@@ -32,14 +35,11 @@ export class CustomerDataService {
   GetAllCustomers(): Observable<Customerdatainterface[]> {
     return this.http.get<Customerdatainterface[]>(`${this.url}/GetAllCustomersData`);
   }  
-  DeleteCustomerById(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/DeleteCustomersWithid/${id}`);
-  }
-  AddNewCustomer(newcustomerdata:any): Observable<any> {
-    return this.http.post(`${this.url}/AddNewCustomers`, [newcustomerdata]);
-  }
   UpdateCustomer(newcustomerdata:any,id:number): Observable<any> { 
     return this.http.put(`${this.url}/UpdateCustomersWithid/${id}`, [newcustomerdata]);
+  }
+  DeleteCustomerById(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/DeleteCustomersWithid/${id}`);
   }
 
 }
