@@ -5,7 +5,7 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { HeaderComponent } from '../header/header.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-body',
@@ -16,7 +16,7 @@ export class BodyComponent {
 
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
+
 
   faPen = faPen;
   faTrash = faTrash;
@@ -24,13 +24,12 @@ export class BodyComponent {
   visibleButtonsMap: { [key: string]: boolean } = {};
   isEditModeMap: { [key: string]: boolean } = {};
 
-  pageSize = 5; // Set your default page size
-  pageSizeOptions = [5, 10, 20, 25]; // Set your available page size options
 
 
 
 
   public customersdatav: any = { customerDetails: [], length: 0 };
+ 
 
   selection = new SelectionModel<any>(true, []);
   displayedColumns: string[] = ['Id', 'Name', 'State'];
@@ -78,21 +77,21 @@ export class BodyComponent {
     }
   }
 
-   nameplaceholder: any;
-   stateplaceholder: any;
-  
+  nameplaceholder: any;
+  stateplaceholder: any;
+
 
   startEdit(userId: any, name: string, state: string) {
     this.isEditModeMap[userId] = true;
-    this.editingUserId = userId; 
- 
+    this.editingUserId = userId;
+
     this.Editform = this.fb.group({
       Editname: name,
       EditState: state, // Corrected typo in property name
     });
 
-    this.nameplaceholder= name;
-    this.stateplaceholder= state;
+    this.nameplaceholder = name;
+    this.stateplaceholder = state;
 
   }
 
@@ -120,7 +119,7 @@ export class BodyComponent {
       this.openSnackBar('No customer data was Edited');
     }
 
-    else{
+    else {
       this.customersdata.UpdateCustomer(customerdata, userId).subscribe(() => {
         console.warn(customerdata);
         console.warn(customerdata.id);
@@ -170,27 +169,35 @@ export class BodyComponent {
       alert('Invalid customer ID');
     }
   }
-  
-  x:number=0;
+
+  x: number = 0;
   addboxvisibility() {
-    if(this.x==0)
-    {
+    if (this.x == 0) {
       this.isaddMode = true;
-      this.x=1;
+      this.x = 1;
     }
-    else
-    {
+    else {
       this.isaddMode = false;
-      this.x=0;
+      this.x = 0;
     }
   }
 
-  onPageChange(event: any): void {
-    this.customersdata.getPagedCustomers(event.pageIndex + 1, event.pageSize).subscribe((data) => {
-      this.customersdatav = data;
-    });
+  public singleCustomerPage: any = { customerDetails: [], length: 0};
+
+  pageSize: number = 10;
+  currentPage: number = 0;
+
+  handlePageEvent(pageEvent: PageEvent) {
+    this.pageSize = pageEvent.pageSize;
+    this.currentPage = pageEvent.pageIndex;
   }
-  
-  
+
+  onPageChange(): any[] {
+    const startIndex = this.currentPage * this.pageSize;
+    this.singleCustomerPage = this.customersdatav.customerDetails.slice(startIndex, startIndex + this.pageSize);
+    return this.singleCustomerPage;
+  }
+
+
 
 }
