@@ -13,12 +13,9 @@ import { Customerdatainterface } from '../customerdatainterface';
 })
 export class CustomerDataService {
 
-  private url = "http://192.168.155.26:8008/api/customers";
-
-  
+  private url = "http://192.168.155.26:8008/api/customers";  
 
   constructor(private http: HttpClient) { }
-
    
   AddNewCustomer(newcustomerdata:any): Observable<any> {
     return this.http.post(`${this.url}/AddNewCustomers`, [newcustomerdata]);
