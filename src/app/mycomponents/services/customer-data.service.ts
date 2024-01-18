@@ -13,7 +13,7 @@ import { Customerdatainterface } from '../customerdatainterface';
 })
 export class CustomerDataService {
 
-  private url = "http://192.168.155.26:8008/api/customers";  
+  private url = "http://10.41.148.92:8008/api/customers";  
 
   constructor(private http: HttpClient) { }
    
